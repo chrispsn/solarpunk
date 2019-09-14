@@ -59,6 +59,15 @@ s:(2/c)=!c               / start state
 n:{~=[0,-1_x; x|1_x,0]}  / next state
 ` 0: " #" r n\ s;        / iterate, display                                           
 </pre></code>
+            
+            <p>Timing of core calc:</p>
+            <code><pre>
+(r;c):26 60                                     / rows (iterations), columns
+\t:1000 " #" r {{~x=y|z} .' 3':0,x,0}\ (2/c)=!c / 1463
+\t:1000 " #" r {~=[0,-1_x; x|1_x,0]}\ (2/c)=!c  / 49
+~[r {{~x=y|z} .' 3':0,x,0}\ (2/c)=!c
+  r {~=[0,-1_x; x|1_x,0]}\ (2/c)=!c]            / 1
+            </pre></code>
           
         </div>
     </body>
