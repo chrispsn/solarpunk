@@ -45,19 +45,26 @@
 </pre>
             <p>Code:</p>
             <code><pre>
+/ setup
 (r;c):26 60                / rows (iterations), columns
 s:(2/c)=!c                 / starting state
 
-/ left XOR (middle OR right)
-n1:{{~x=y|z} .' 3':0,x,0}  / next state (my original)
-n2:{~=[0,-1_x; x|1_x,0]}   / next state (with help of k expert)
+/ next state: 
+/ left_cell XOR (central_cell OR right_cell)
+n1:{{~x=y|z} .' 3':0,x,0}  / original
+n2:{{~x=y|z} . +3':0,x,0}  / with help of k expert
+n3:{~=[0,-1_x; x|1_x,0]}   / with more help of k expert
 
-` 0: " #" r n1\ s;         / iterate, display
+` 0: " #" r n1\ s;         / iterate, display  
 
-/ testing
-\t:1000 r n1\ s            / 1342
-\t:1000 r n2\ s            / 38
+/ check that giving same results
 ~[r n1\ s; r n2\ s]        / 1
+~[r n2\ s; r n3\ s]        / 1
+
+/ performance
+\t:1000 r n1\ s            / 1445
+\t:1000 r n2\ s            / 550
+\t:1000 r n3\ s            / 36
             </pre></code>
           
         </div>
