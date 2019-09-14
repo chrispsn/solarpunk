@@ -11,7 +11,7 @@
 
             <h2>Writing fast K code</h2>
             
-            <p>Try to avoid using 'each' (<code>'</code>).</p>
+            <p>Try to avoid using 'each' (<code>'</code>) and 'window' (<code>':</code>).</p>
 
             <p><a href="https://en.wikipedia.org/wiki/Rule_30">Rule 30</a>:</p>
             <pre>
@@ -48,7 +48,7 @@
 (r;c):26 60                / rows (iterations), columns
 s:(2/c)=!c                 / starting state
 
-/ left_cell XOR (central_cell OR right_cell)
+/ left XOR (middle OR right)
 n1:{{~x=y|z} .' 3':0,x,0}  / next state (my original)
 n2:{~=[0,-1_x; x|1_x,0]}   / next state (with help of k expert)
 
