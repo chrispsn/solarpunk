@@ -41,32 +41,21 @@
      ## #### ##  ###   # ##  #    # ## #     #####   ###    
     ##  #    # ###  # ## # ####  ## #  ##   ##    # ##  #
 </pre>
-            
-            <p>Original:</p>
+            <p>Code:</p>
             <code><pre>
 / left_cell XOR (central_cell OR right_cell)
-(r;c):26 60              / rows (iterations), columns
-s:(2/c)=!c               / start state
-n:{{~x=y|z} .' 3':0,x,0} / next state
-` 0: " #" r n\ s;        / iterate, display
-</pre></code>
-                
-                <p>Rewritten by a k expert:</p>
-                <code><pre>
-/ left_cell XOR (central_cell OR right_cell)
-(r;c):26 60              / rows (iterations), columns
-s:(2/c)=!c               / start state
-n:{~=[0,-1_x; x|1_x,0]}  / next state
-` 0: " #" r n\ s;        / iterate, display                                           
-</pre></code>
-            
-            <p>Timing of core calc:</p>
-            <code><pre>
-(r;c):26 60                                     / rows (iterations), columns
-\t:1000 " #" r {{~x=y|z} .' 3':0,x,0}\ (2/c)=!c / 1463
-\t:1000 " #" r {~=[0,-1_x; x|1_x,0]}\ (2/c)=!c  / 49
-~[r {{~x=y|z} .' 3':0,x,0}\ (2/c)=!c
-  r {~=[0,-1_x; x|1_x,0]}\ (2/c)=!c]            / 1
+(r;c):26 60                / rows (iterations), columns
+s:(2/c)=!c                 / starting state
+
+n1:{{~x=y|z} .' 3':0,x,0}  / next state (original)
+n2:{~=[0,-1_x; x|1_x,0]}   / next state (with help of k expert)
+
+` 0: " #" r n1\ s;         / iterate, display
+
+/ testing
+\t:1000 r n1\s             / 1342
+\t:1000 r n2\s             / 38
+~[r n1\s; r n2\s]          / 1
             </pre></code>
           
         </div>
