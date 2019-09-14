@@ -43,11 +43,11 @@
 </pre>
             <p>Code:</p>
             <code><pre>
-/ left_cell XOR (central_cell OR right_cell)
 (r;c):26 60                / rows (iterations), columns
 s:(2/c)=!c                 / starting state
 
-n1:{{~x=y|z} .' 3':0,x,0}  / next state (original)
+/ left_cell XOR (central_cell OR right_cell)
+n1:{{~x=y|z} .' 3':0,x,0}  / next state (my original)
 n2:{~=[0,-1_x; x|1_x,0]}   / next state (with help of k expert)
 
 ` 0: " #" r n1\ s;         / iterate, display
