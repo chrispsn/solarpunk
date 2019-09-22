@@ -43,7 +43,7 @@ input:,/("200370009";"009200007"
 answer:s input
 </code></pre>
 
-        <p><a href="http://kparc.com/z/game.k">kparc.com's solver</a>, expressed in Shakti k and split over more lines.</p>
+        <p><a href="http://kparc.com/z/game.k">kparc.com's solver</a>, expressed in Shakti k and split over more than two lines.</p>
         <p>I did not invent this solver, but wanted to understand and explain how it works.</p>
         <p>Unknown cells are <code>0</code>s in the input. It's expressed as a string subtraction because it's shorter than writing the equivalent integer list literal.</p>
         <p><code>p</code> is a list of, for each cell in the Sudoku grid, the indices of all cells that 'contend' with it (ie share a row, column and/or box). It is the same regardless of the input.</p>
@@ -63,7 +63,7 @@ answer:s input
 
         <p>We can see the candidate count (<code>#:</code>) change each iteration by switching from over (<code>/</code>) to scan (<code>\</code>):</p>
 
-        <pre><code> / Candidate list counts
+        <pre><code> / Candidate counts
  l: #:'{f\[,x;&~x]} input
  
  / 5-at-a-time for display
@@ -92,8 +92,10 @@ answer:s input
 
          <p>If you'd like to learn more about Shakti k, there's an unofficial <a href="https://kcc.kparc.io/">tutorial</a> and <a href="https://kparc.github.io/ref/">reference</a>.</p>
 
+         <p>(See also John Scholes' <a href="https://www.youtube.com/watch?v=DmT80OseAGs">APL walk-through video</a> <!-- and <a href="">accompanying step-through</a> on TryAPL, -->and <a href="https://code.jsoftware.com/wiki/Essays/Sudoku">Roger Hui's solver in J</a>.)</p>
+
 <!--
-        <p>TODO compare to Dyalog solver? Dyalog is generic on the problem size though.</p>
+        <p>TODO compare to Dyalog (Scholes video + tryapl) solver? Dyalog is generic on the problem size though.</p>
 
         <p>TODO compare to Peter Norvig's solution</p>
 
