@@ -8,27 +8,24 @@
             body {font-family: sans-serif; line-height: 1.3; padding: 1.25em; margin: auto}
             nav h1 {font-size: 1rem; margin: 0}
             nav ul {list-style:none; padding: 0; margin: 0.5em 0}
-            pre, code {font-family: Consolas, Menlo, monospace; background-color: Gainsboro}
+            code {padding: 0 2px}
+            pre, code {font-family: Consolas, Menlo, monospace; background-color: Gainsboro} 
             pre {padding: 1em; font-size: 0.8rem}
-            .selected:after {content: " <~"; color: red}
             .bad {color: white; background-color: red}
             @media screen and (min-device-width: 480px) and (min-width: 1000px) {
                 body {max-width: 600px; padding: 1.5em}
                 nav {float: left; margin-left: -180px; margin-top: 0px; width: 180px}
+                .selected:after {content: " <~"; color: red}
             }
         </style>
     </head>
     <body>
         <nav>
             <h1>Solarpunk Systems</h1>
-            <ul>
-                <li class="selected">Sudoku in k</li>
-                <!--
-                <li>About</li>
-                <li>Hello hello hello hello hello</li>
-                -->
-            </ul>
+            <ul id="pages"></ul>
         </nav> <!-- clear: left? -->
+
+        <section id="sudoku-in-k" data-title="Sudoku in Shakti k">
 
         <h3>Sudoku in Shakti k</h3>
 
@@ -43,19 +40,21 @@ input:,/("200370009";"009200007"
 answer:s input
 </code></pre>
 
-        <p><a href="http://kparc.com/z/game.k">kparc.com's solver</a>, expressed in Shakti k and split over more than two lines.</p>
-        <p>I did not invent this solver, but wanted to understand and explain how it works.</p>
+        <p><a href="http://kparc.com/z/game.k">kparc.com's solver</a>, expressed in Shakti k and split over >2 lines.</p>
+        <p>I did not invent this solver, but wanted to understand how it works.</p>
+        <p>The short answer is: pick an unknown slot; for each number left after excluding the known numbers in the same row/column/box, create a candidate solution; repeat for each candidate solution until all slots are filled. You now have a list of solutions.</p>
+        <hr>
         <p>Unknown cells are <code>0</code>s in the input. It's expressed as a string subtraction because it's shorter than writing the equivalent integer list literal.</p>
-        <p><code>p</code> is a list of, for each cell in the Sudoku grid, the indices of all cells that 'contend' with it (ie share a row, column and/or box). It is the same regardless of the input.</p>
+        <p><code>p</code> is a list of, for each cell in the Sudoku grid, the indices of all cells that directly restrict what its value can be (ie share a row, column and/or box). It is the same regardless of the input.</p>
         <ul>
             <li>It generates a list of box-row-col ID lists using floored int division (<code>3/</code>) and conversion from base 3 digits (<code>3/:</code>).
-            <li>Then, for each ID list, it finds all cells that contend with it (<code>(&|/p=)'</code>).</li>
+            <li>Then, for each ID list, it finds the indices of all cells that share with it a row, col or box (<code>(&|/p=)'</code>).</li>
         </ul>
         <p><code>s</code> returns a list of valid answers. <code>s</code> has shape <code>f/[x;y]</code> ie <code>x f/y</code>: it iterates left-to-right over the indices of the unknown cells (<code>&~x</code>), with an explicit starting state (<code>,x</code>). Each iteration fills one slot and returns an updated list of candidate solutions; that list, and the next unknown cell index, are inputs to the next iteration.</p>
         <p><code>f</code> does the real work in each iteration of <code>s</code>. It takes a list of candidate solutions and the index of an unknown cell, and returns the next set of WIP candidate solutions.</p>
         <ul>
             <li>The first iteration starts with the input puzzle (<code>,x</code>), enlisted because the iterator expects a <i>list</i> of candidate solutions.</li>
-            <li><code>p</code> is used to get the known values of cells that contend with the unknown cell examined in that iteration (<code>x p y</code>), in order to determine which possible values remain (<code>10^</code>). A lot of the time, the contending cells will cover all legal values, being 0&ndash;9 (ie it's a dead end), so <code>10^</code> will return an empty list.
+            <li><code>p</code> is used to get the known values of cells that contend with the unknown cell examined in that iteration (<code>x p y</code>), to determine which possible values remain (<code>10^</code>). A lot of the time, the contending cells will cover all legal values, being 0&ndash;9 (ie it's a dead end), so <code>10^</code> will return an empty list.
             <li><code>@[x;y;]'</code> just says "for each legal value this cell could take, generate a candidate solution for consideration in the next iteration that has the unknown cell filled with that value".</li>
         </ul>
 
@@ -103,6 +102,8 @@ answer:s input
 
         waht does it look like in j?
 
+        </section>
+
         <h3>Speed tips</h3>
         
         <p>Try to avoid using 'each' (<code>'</code>) and 'window' (<code>':</code>).</p>
@@ -149,5 +150,28 @@ n3:{~=[0,-1_x; x|1_x,0]}  / with more help of k expert
 \t:1000 r n3\ s           / 36
 </pre></code>
 -->
+    <script>
+    // Run on load AND on change of url hash (just a page 'go to'?)
+    const ss = document.getElementsByTagName("section");
+    const index = document.getElementById("pages");
+    const current_article = new URL(document.URL).hash.slice(1);
+    for (let i=0; i<ss.length; i++) {
+        let e = ss[i];
+        let id = e.id;
+        let text = document.createTextNode(e.getAttribute("data-title"))
+        let child = document.createElement("li")
+        // make only for CURRENT article
+        if (id == current_article) {
+            child.classList.add("selected")
+        }
+        child.setAttribute("id", id)
+        child.appendChild(text)
+        index.appendChild(child)
+        console.log()
+    }
+    /*
+    
+    */
+    </script>
     </body>
 </html>
