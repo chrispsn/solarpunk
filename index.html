@@ -60,6 +60,8 @@ answer:s input
 
         <p>When reading kparc's code, I couldn't understand how illegal solutions were weeded out. The answer is: if a candidate solution has no legal values for the unknown cell, then <code>10^</code> (and therefore <code>@[x;y;]'</code>) will return an empty list, so that solution won't spawn any children for inclusion in the candidate list used in the next iteration!</p>
 
+        <hr>
+
         <p>We can see the candidate count (<code>#:</code>) change each iteration by switching from over (<code>/</code>) to scan (<code>\</code>):</p>
 
         <pre><code> / Candidate counts
@@ -88,6 +90,8 @@ answer:s input
          "104000000")-"0"</code></pre>
 
          <p>But hey, come on: it's a Sudoku solver in two lines of code.</p>
+
+         <hr>
 
          <p>If you'd like to learn more about Shakti k, there's an unofficial <a href="https://kcc.kparc.io/">tutorial</a> and <a href="https://kparc.github.io/ref/">reference</a>.</p>
 
