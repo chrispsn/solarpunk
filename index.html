@@ -171,22 +171,23 @@ answer:s input
 (r;c):16 60
 start:(2/c)=!c
 
-/ next state: left XOR (middle OR right)
-/ different ways. n2, n3 by a k expert (not me)
+/ next: left XOR (mid OR right)
+/ iterations in order of speed.
+/ n1 by me. n2, n3 by k expert.
 n1:{{~x=y|z} .<span class="bad">'</span> 3<span class="bad">':</span>0,x,0}
 n2:{{~x=y|z} . +3<span class="bad">':</span>0,x,0}
 n3:{~=[0,-1_x; x|1_x,0]}
 
-` 0: " #" r n1\ start;    / iterate, display  
+` 0: " #" r n1\ start;   / iterate, show  
 
 / check getting same results
-~[r n1\ s; r n2\ start]   / 1
-~[r n2\ s; r n3\ start]   / 1
+~[r n1\ start; r n2\ start]
+~[r n2\ start; r n3\ start]
 
 / performance
-\t:1000 r n1\ s           / 1445
-\t:1000 r n2\ s           / 550
-\t:1000 r n3\ s           / 36</code></pre>
+\t:1000 r n1\ start      / 1445
+\t:1000 r n2\ start      / 550
+\t:1000 r n3\ start      / 36</code></pre>
 
     </section>
 
