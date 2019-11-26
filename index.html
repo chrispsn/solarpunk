@@ -168,19 +168,20 @@ answer:s input
 </pre>
 
         <pre><code>/ setup
-(r;c):16 60               / rows (iterations), columns
-s:(2/c)=!c                / starting state
+(r;c):16 60
+start:(2/c)=!c
 
 / next state: left XOR (middle OR right)
-n1:{{~x=y|z} .<span class="bad">'</span> 3<span class="bad">':</span>0,x,0} / original
-n2:{{~x=y|z} . +3<span class="bad">':</span>0,x,0} / with help of k expert
-n3:{~=[0,-1_x; x|1_x,0]}  / with more help of k expert
+/ different ways. n2, n3 by a k expert (not me)
+n1:{{~x=y|z} .<span class="bad">'</span> 3<span class="bad">':</span>0,x,0}
+n2:{{~x=y|z} . +3<span class="bad">':</span>0,x,0}
+n3:{~=[0,-1_x; x|1_x,0]}
 
-` 0: " #" r n1\ s;        / iterate, display  
+` 0: " #" r n1\ start;    / iterate, display  
 
 / check getting same results
-~[r n1\ s; r n2\ s]       / 1
-~[r n2\ s; r n3\ s]       / 1
+~[r n1\ s; r n2\ start]   / 1
+~[r n2\ s; r n3\ start]   / 1
 
 / performance
 \t:1000 r n1\ s           / 1445
@@ -190,7 +191,7 @@ n3:{~=[0,-1_x; x|1_x,0]}  / with more help of k expert
     </section>
 
     <section id="about" data-title="About">
-        <h2>About Solarpunk Software</h2>
+        <h2>About Solarpunk Systems</h2>
 
         <p>Inspiration...</p>
 
