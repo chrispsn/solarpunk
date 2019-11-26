@@ -1,5 +1,16 @@
 <html>
     <head>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-20547820-9"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-20547820-9');
+        </script>
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Solarpunk Systems</title>
@@ -7,28 +18,53 @@
             /* Heavily inspired by https://macwright.org/2019/02/09/tachyons-css.html */
             /* See also https://jrl.ninja/etc/1/ and https://news.ycombinator.com/item?id=19607169 */
             body {font-family: sans-serif; line-height: 1.3; padding: 1.2em; margin: auto}
+            /* a {color: black} */
+            h1 a {color: black; text-decoration: none}
             nav h1 {font-size: 1rem; margin: 0}
             nav ul {list-style:none; padding: 0; margin: 0.5em 0}
+            /* nav li {display: none} */
+            nav li a {color: black; text-decoration: none}
+            a:hover {text-decoration: underline}
+            .selected {display: block}
             code {padding: 0 2px}
             pre, code {font-family: Consolas, Menlo, monospace; background-color: Gainsboro} 
             pre {padding: 1em; font-size: 0.8rem}
             .bad {color: white; background-color: red}
             @media screen and (min-device-width: 480px) and (min-width: 1000px) {
                 body {max-width: 600px; padding: 1.5em}
-                nav {float: left; margin-left: -180px; margin-top: 0px; width: 180px}
+                nav {position: fixed; float: left; margin-left: -180px; margin-top: 0px; width: 180px}
+                nav li {display: block}
                 .selected:after {content: " <~"; color: red}
+                h2 {margin-top: 0em}
+                section {padding-top: 1em}
+                section:nth-of-type(1) {padding-top: 0}
             }
         </style>
     </head>
     <body>
         <nav>
-            <h1>Solarpunk Systems</h1>
+            <h1><a href="https://solarpunk.systems">Solarpunk Systems</a></h1>
             <ul id="pages"></ul>
+            <address><a href="mailto:solarpunk@fastmail.com">Email</a></address>
         </nav> <!-- clear: left? -->
 
-        <section id="sudoku-in-k" data-title="Sudoku in Shakti k">
+        <section id="mesh-spreadsheet" data-title="Mesh Spreadsheet">
 
-        <h3>Sudoku in Shakti k</h3>
+            <h2>Mesh Spreadsheet</h2>
+
+            <p>Billions of rows. Dynamic tables. Stream data. SQL formulas. Sheets are text.</p>
+
+            <p>It's a code editor that feels like a spreadsheet, with a crazy-fast calculation engine.</p>
+
+            <p><a href="mailto:solarpunk@fastmail.com">Email us</a> for early access. Places are limited. Also check out the <a href="http://mesh-spreadsheet.com/">JavaScript version</a>.</p>
+
+        </section>
+
+        <section id="k-notes" data-title="Notes on k">
+
+        <h2 id="k-notes">Notes on k</h2>
+        
+        <h3>Sudoku</h3>
 
         <pre><code>p:(&|/p=)'+p,:,3/:3/p:!9 9
 f:,/{@[x;y;]'10^x p y}'
@@ -42,7 +78,7 @@ answer:s input
 </code></pre>
 
         <p><a href="http://kparc.com/z/game.k">kparc.com's solver</a>, expressed in Shakti k and split over more than 2 lines.</p>
-        <p>I did not invent this solver, but wanted to understand how it works.</p>
+        <p>I did not invent this solver, but I wanted to understand how it works.</p>
         <p>The short answer is: pick an unknown slot; for each number left after excluding the known numbers in the same row/column/box, create a candidate solution; repeat for each candidate solution until all slots are filled. You now have a list of solutions.</p>
         <hr>
         <p>Unknown cells are <code>0</code>s in the input. It's expressed as a string subtraction because it's shorter than writing the equivalent integer list literal.</p>
@@ -98,22 +134,19 @@ answer:s input
 
          <p>See also John Scholes' <a href="https://www.youtube.com/watch?v=DmT80OseAGs">APL walk-through video</a> <!-- and <a href="">accompanying step-through</a> on TryAPL, -->+ <a href="https://code.jsoftware.com/wiki/Essays/Sudoku">Roger Hui's solver in J</a>.</p>
 
-<!--
-        <p>TODO compare to Dyalog (Scholes video + tryapl) solver? Dyalog is generic on the problem size though.</p>
-
-        <p>TODO compare to Peter Norvig's solution</p>
-
+         <!--
+        TODO compare to Dyalog (Scholes video + tryapl) solver? Dyalog is generic on the problem size though.</p>
+        TODO compare to Peter Norvig's solution<
         TODO functions to convert TO and FROM a grid representation
+        what does it look like in j?
+        -->
 
-        waht does it look like in j?
+        <!-- TODO: analyse the Y Kombinator (ngn's) -->
 
-        </section>
+        <h3>Rule 30</h3>
 
-        <h3>Speed tips</h3>
-        
-        <p>Try to avoid using 'each' (<code>'</code>) and 'window' (<code>':</code>).</p>
+        <a href="https://en.wikipedia.org/wiki/Rule_30">Wikipedia</a>
 
-        <p><a href="https://en.wikipedia.org/wiki/Rule_30">Rule 30</a>:</p>
         <pre>
                 #                             
                ###                            
@@ -133,8 +166,8 @@ answer:s input
  ## ####  ## #  # #####  #######              
 ##  #   ###  #### #    ###      #             
 </pre>
-        <code><pre>
-/ setup
+
+        <pre><code>/ setup
 (r;c):16 60               / rows (iterations), columns
 s:(2/c)=!c                / starting state
 
@@ -152,31 +185,50 @@ n3:{~=[0,-1_x; x|1_x,0]}  / with more help of k expert
 / performance
 \t:1000 r n1\ s           / 1445
 \t:1000 r n2\ s           / 550
-\t:1000 r n3\ s           / 36
-</pre></code>
--->
+\t:1000 r n3\ s           / 36</code></pre>
+
+    </section>
+
+    <section id="about" data-title="About">
+        <h2>About Solarpunk Software</h2>
+
+        <p>Inspiration...</p>
+
+        <p>Automated discovery:</p>
+            <ul>
+                <li><a href="http://www.conwaylife.com/forums/viewtopic.php?t=2057&f=2">"is this c/10 spaceship known?"</a> (<a href="https://niginsblog.wordpress.com/2016/03/07/new-spaceship-speed-in-conways-game-of-life/">explanation</a>)</li>
+            </ul>
+    </section>
+
     <script>
-    // Run on load AND on change of url hash (just a page 'go to'?)
-    const ss = document.getElementsByTagName("section");
-    const index = document.getElementById("pages");
-    const current_article = new URL(document.URL).hash.slice(1);
-    for (let i=0; i<ss.length; i++) {
-        let e = ss[i];
-        let id = e.id;
-        let text = document.createTextNode(e.getAttribute("data-title"))
-        let child = document.createElement("li")
-        // make only for CURRENT article
-        if (id == current_article) {
-            child.classList.add("selected")
+
+    function update_display (id) {
+        const links = document.querySelector("#pages").querySelectorAll("a");
+        for (let i=0; i<links.length; i++) {
+            const link = links[i]
+            if (link.hash == "#"+id) link.classList.add("selected")
+            else link.classList.remove("selected")
         }
-        child.setAttribute("id", id)
-        child.appendChild(text)
-        index.appendChild(child)
-        console.log()
+        // could also use new URL(document.URL) props
     }
-    /*
-    
-    */
+    // Run on load AND on change of url hash (just a page 'go to'?)
+    function update_list() {
+        const ss = document.getElementsByTagName("section")
+        const index = document.getElementById("pages")
+        for (let i=0; i<ss.length; i++) {
+            let id = ss[i].id;
+            let text = document.createTextNode(ss[i].getAttribute("data-title"))
+            let link = document.createElement("a");
+            link.href = "#" + id
+            link.onclick = (function() {return function() {update_display(id)}})()
+            link.appendChild(text);
+            let item = document.createElement("li")
+            item.appendChild(link)
+            index.appendChild(item)
+        }
+    }
+    update_list()
+    update_display(new URL(document.URL).hash.slice(1))
     </script>
     </body>
 </html>
