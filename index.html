@@ -72,18 +72,16 @@
 
         <pre><code>wc:{(+/x="\n";+/0>':x in" \n\t\r";#x)}</code></pre>
 
-        <p>The key is an each-prior with seed 0 (<code>0&gt;':</code>). Compare:</p>
+        <p>The word counter uses a greater-than each-prior with seed 0 (<code>0&gt;':</code>). Compare:</p>
 
         <pre><code>2019-09-20 14:00:39 2core 3gb avx2 © shakti l test
- ,':|!3
-2 <span class="em">Ø</span>
-1 2
-0 1
+ ,':!2
+0 <span class="em">Ø</span>
+1 0
 
- 0,':|!3
-2 <span class="em">0</span>
-1 2
-0 1</code></pre>
+ 0,':!2
+0 <span class="em">0</span>
+1 0</code></pre>
 
         <p>On <a href="https://github.com/ChrisPenner/wc/blob/master/data/big.txt">big.txt</a></code>:</p>
 
