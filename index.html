@@ -28,7 +28,7 @@
             .selected {display: block}
             code {padding: 0 2px}
             pre, code {font-family: Consolas, Menlo, monospace; background-color: Gainsboro} 
-            pre {padding: 1em; font-size: 0.8rem}
+            pre {padding: 1em; font-size: 0.8rem; overflow-x: auto}
             code .em {color: white; background-color: red}
             @media screen and (min-device-width: 480px) and (min-width: 1000px) {
                 body {max-width: 600px; padding: 1.5em}
@@ -70,12 +70,11 @@
 
         <p>A <a href="https://news.ycombinator.com/item?id=21413454">few of us</a> came up with:</p>
 
-        <pre><code>wc:{+/'(x="\n";0>':x in" \n\t\r";#x)}</code></pre>
+        <pre><code>{+/'(x="\n";0>':x in" \n\t\r";#x)}</code></pre>
 
         <p>The trick's a greater-than each-prior with seed 0 (<code>0&gt;':</code>). Compare:</p>
 
-        <pre><code>2019-09-20 14:00:39 2core 3gb avx2 © shakti l test
- ,':!2
+        <pre><code> ,':!2
 0 <span class="em">Ø</span>
 1 0
 
@@ -85,8 +84,7 @@
 
         <p>On <a href="https://github.com/ChrisPenner/wc/blob/master/data/big.txt">big.txt</a></code>:</p>
 
-        <pre><code>2019-09-20 14:00:39 2core 3gb avx2 © shakti l test
- ."\\wc big.txt"
+        <pre><code> ."\\wc big.txt"
 ," 128457 1095695 6488666 big.txt"
  wc:{+/'(x="\n";0>':x in" \n\t\r";#x)}
  wc@1:`big.txt
@@ -96,7 +94,7 @@
  \t:100 wc@1:`big.txt
 4045</code></pre>
 
-        <p>But under the current k version, Attila Vrabecz <a href="https://news.ycombinator.com/item?id=21413454">discovered</a>:</p>
+        <p>But under k 2019-09-20, Attila Vrabecz <a href="https://news.ycombinator.com/item?id=21413454">discovered</a>:</p>
 
         <pre><code> wcfast:{+/'(x <span class="em">in"\n\n"</span>;0>':x in" \n\t\r";#x)}
  wcfast@1:`big.txt
