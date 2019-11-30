@@ -68,20 +68,20 @@
 
         <p>A <a href="https://news.ycombinator.com/item?id=21413454">few of us</a> came up with:</p>
 
-        <pre><code>wc:{(+/x="\n"),(+/0>':x in" \n\t\r"),#x}</code></pre>
+        <pre><code>wc:{(+/x="\n";+/0>':x in" \n\t\r";#x)}</code></pre>
 
         <p>On <a href="https://github.com/ChrisPenner/wc/blob/master/data/big.txt">big.txt</a></code>:</p>
 
         <pre><code>2019-09-20 14:00:39 2core 3gb avx2 © shakti l test
  ."\\wc big.txt"
 ," 128457 1095695 6488666 big.txt"
- wc:{(+/x="\n"),(+/0>':x in" \n\t\r"),#x}
+ wc:{(+/x="\n";+/0>':x in" \n\t\r";#x)}
  wc@1:`big.txt
 128457 1095695 6488666
  \t:100 ."\\wc big.txt"
 27965
  \t:100 wc@1:`big.txt
-4436</code></pre>
+4045</code></pre>
 
         <p>Note that under the current version, Attila Vrabecz <a href="https://news.ycombinator.com/item?id=21413454">discovered that</a>:</p>
 
@@ -89,7 +89,7 @@
  wcfast@1:`big.txt
 128457 1095695 6488666
  \t:100 wcfast@1:`big.txt
-4009</code></pre>
+ 3914</code></pre>
 
         <p>See also 'Beating C with...':</p>
         <ul>
