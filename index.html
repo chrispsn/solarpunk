@@ -103,6 +103,17 @@
  \t:100 wcfast@1:`big.txt
 3914</code></pre>
 
+        <p>Update 2019-12-01: ngn <a href="https://chat.stackexchange.com/transcript/message/52744162#52744162">dropped the <code>in</code>s</a>:</p>
+        <pre><code> d:1:`big.txt
+ wc:{+/'(x="\n";0>':x in" \n\t\r";#x)}
+ fc:+/'(1=;<':4=;#:)@\:" \n\t\r"?
+ ~/(wc;fc)@\:d
+1
+ \t:100 wc@d
+3113
+ \t:100 fc@d
+2462</code></pre>
+
         <p>See also 'Beating C with...':</p>
         <ul>
             <li><a href="https://eli.thegreenplace.net/2019/beating-c-with-400-lines-of-unoptimized-assembly/">400 lines of unoptimized assembly</a></li>
