@@ -69,63 +69,27 @@
 
         <h3><code>wc</code> in k</h3>
 
-        <p>A <a href="https://news.ycombinator.com/item?id=21413454">few of us</a> came up with:</p>
+        <p>Crowd-<a href="https://news.ycombinator.com/item?id=21413454">sourced</a>, ngn-<a href="https://chat.stackexchange.com/transcript/message/52744162#52744162">refined</a>:</p>
 
-        <pre><code>{+/'(x="\n";0>':x in" \n\t\r";#x)}</code></pre>
-
-        <p>The trick's a greater-than each-prior with seed 0 (<code>0&gt;':</code>). Compare:</p>
-
-        <pre><code> ,':!2
-0 <span class="em">Ø</span>
-1 0
-
- 0,':!2
-0 <span class="em">0</span>
-1 0</code></pre>
+        <pre><code>wc:+/'(1=;&lt;':4=;#:)@\:" \n\t\r"?</code></pre>
 
         <p>On <a href="https://github.com/ChrisPenner/wc/blob/master/data/big.txt">big.txt</a></code>:</p>
 
         <pre><code> ."\\wc big.txt"
 ," 128457 1095695 6488666 big.txt"
- wc:{+/'(x="\n";0>':x in" \n\t\r";#x)}
- wc@1:`big.txt
+ wc@1:`big.txt 
 128457 1095695 6488666
- \t:100 ."\\wc big.txt"
-27965
- \t:100 wc@1:`big.txt
-4045</code></pre>
 
-        <p>Under k 2019-09-20, Attila <a href="https://news.ycombinator.com/item?id=21413454">discovered</a>:</p>
+ / total ms on k 2019-09-20
+ \t:100 wc@1:`big.txt  
+2767
+ \perf stat -r 100 -B wc big.txt
+ / 0.28s/run (10x time in my vm)</code></pre>
 
-        <pre><code> wcfast:{+/'(x <span class="em">in"\n\n"</span>;0>':x in" \n\t\r";#x)}
- wcfast@1:`big.txt
-128457 1095695 6488666
- \t:100 wcfast@1:`big.txt
-3914</code></pre>
-
-        <p>Update 2019-12-01: ngn <a href="https://chat.stackexchange.com/transcript/message/52744162#52744162">cut <code>in</code>s</a>:</p>
-        <pre><code> d:1:`big.txt
- wc:{+/'(x="\n";0>':x in" \n\t\r";#x)}
- fc:+/'(1=;<':4=;#:)@\:" \n\t\r"?
- ~/(wc;fc)@\:d
-1
- \t:100 wc@d
-3113
- \t:100 fc@d
-2462</code></pre>
-    
-        <p>Update 2019-12-02: And if we're golfing and order doesn't matter...</p>
+        <p>And if we're golfing and order doesn't matter...</p>
         <pre><code>+/+1,(1=;<':4=)@\:" \n\t\r"?</code></pre>
 
-        <p>Will be cool if k updates approach <a href="https://github.com/expr-fi/fastlwc/">SIMD C</a> (<a href="https://www.reddit.com/r/programming/comments/e1uhtn/beating_c_with_400_lines_of_unoptimized_assembly/f8s0ob8/">Reddit</a>):</p>
-        <pre><code> \t:100 ."\\./bsd-wc big.txt"
-13978
- \t:100 ."\\./fastlwc big.txt"
-534
- \t:100 ."\\./fastlwc-mt big.txt"
-421
- \t:100 +/'(1=;<':4=;#:)@\:" \n\t\r"?1:`big.txt
-3847</code></pre>
+        <p>Will future k close on <a href="https://github.com/expr-fi/fastlwc/">SIMD C</a> (<a href="https://www.reddit.com/r/programming/comments/e1uhtn/beating_c_with_400_lines_of_unoptimized_assembly/f8s0ob8/">Reddit</a>, <a href="https://lobste.rs/s/heejj0/beating_wc_with_c">Lobsters</a>): 0.3sec for 100 runs?</p>
 
         <p>See also 'Beating C with...':</p>
         <ul>
